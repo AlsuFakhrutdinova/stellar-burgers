@@ -1,5 +1,5 @@
 import { FC, memo, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Location } from 'react-router-dom';
 
 import { OrderCardProps } from './type';
 import { TIngredient } from '@utils-types';
@@ -9,8 +9,14 @@ import { selectIngredients } from '../../services/selectors/ingredientsSelectors
 
 const maxIngredients = 6;
 
+type TLocationState = {
+  background?: Location;
+};
+
 export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
   const location = useLocation();
+  const state = location.state as TLocationState | null;
+  const background = state?.background || location;
 
   const ingredients: TIngredient[] = useSelector(selectIngredients);
 
@@ -52,7 +58,7 @@ export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
     <OrderCardUI
       orderInfo={orderInfo}
       maxIngredients={maxIngredients}
-      locationState={{ background: location }}
+      locationState={{ background }}
     />
   );
 });
