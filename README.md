@@ -49,6 +49,24 @@
 - `npm run lint:fix` - Автоматическое исправление ESLint-замечаний
 - `npm run format` - Форматирование кода с помощью Prettier;
 - `npm run storybook` - Запуск Storybook для просмотра UI-компонентов;
+- `npm run test:playwright` - Запуск интеграционных тестов Playwright;
+- `npm run test:jest` - Запуск юнит-тестов Jest (редьюсеры);
+
+## Тестирование
+
+Проект покрыт двумя видами автоматических тестов.
+
+**Playwright** — интеграционные тесты страницы конструктора бургера (`tests/constructor.pl.tsx`): добавление ингредиентов в конструктор, открытие и закрытие модального окна ингредиента, полный цикл оформления заказа. Запросы к серверу подменяются заранее записанными HAR-файлами (`tests/hars/`), авторизация - поддельными токенами.
+
+`npm run test:playwright`
+
+При первом запуске потребуется установить браузеры:
+
+`npx playwright install`
+
+**Jest** — юнит-тесты редьюсеров `ingredients` и `burgerConstructor` (`src/services/slices/__tests__/`): проверка каждого экшена слайса, включая `pending`/`fulfilled`/`rejected` и неизвестный экшен.
+
+`npm run test:jest`
 
 ## Структура проекта
 
@@ -58,6 +76,7 @@ ui/ — презентационные компоненты (вёрстка бе
 pages/ — компоненты страниц
 services/
 slices/ — Redux-слайсы (ingredients, user, burgerConstructor, order, feed, userOrders)
+**tests** - Jest-тесты редьюсеров
 selectors/ — селекторы для каждого слайса
 store.ts — конфигурация Redux-стора
 utils/
@@ -65,6 +84,11 @@ burger-api.ts — функции для запросов к API
 ws.ts — адрес WebSocket-сервера
 cookie.ts — работа с cookie (токены авторизации)
 types.ts — общие TypeScript-типы
+test/
+constructor.pl.tsx - интеграционные тесты Platwright
+hars/ - заглушки ответов сервера для тестов
+playwright.config.ts - конфигурация Playwright
+jest.config.ts - конфигурация Jest
 
 ## Этапы работы:
 
