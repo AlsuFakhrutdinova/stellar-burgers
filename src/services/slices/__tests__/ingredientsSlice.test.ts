@@ -1,11 +1,9 @@
-import { ingredientsReducer, fetchIngredients } from '../ingredientsSlice';
+import {
+  ingredientsReducer,
+  fetchIngredients,
+  initialState
+} from '../ingredientsSlice';
 import { TIngredient } from '@utils-types';
-
-const initialState = {
-  items: [],
-  isLoading: false,
-  error: null
-};
 
 const testIngredient: TIngredient = {
   _id: '643d69a5c3f7b9001cfa093c',
@@ -29,8 +27,7 @@ describe('редьюсер ingredientsSlice', () => {
 
   test('fetchIngredients.pending — включает загрузку и сбрасывает ошибку', () => {
     const previousState = {
-      items: [],
-      isLoading: false,
+      ...initialState,
       error: 'предыдущая ошибка'
     };
     const state = ingredientsReducer(
@@ -43,9 +40,8 @@ describe('редьюсер ingredientsSlice', () => {
 
   test('fetchIngredients.fulfilled — выключает загрузку и сохраняет список ингредиентов', () => {
     const previousState = {
-      items: [],
-      isLoading: true,
-      error: null
+      ...initialState,
+      isLoading: true
     };
     const state = ingredientsReducer(
       previousState,
@@ -57,9 +53,8 @@ describe('редьюсер ingredientsSlice', () => {
 
   test('fetchIngredients.rejected — выключает загрузку и сохраняет текст ошибки', () => {
     const previousState = {
-      items: [],
-      isLoading: true,
-      error: null
+      ...initialState,
+      isLoading: true
     };
     const state = ingredientsReducer(
       previousState,

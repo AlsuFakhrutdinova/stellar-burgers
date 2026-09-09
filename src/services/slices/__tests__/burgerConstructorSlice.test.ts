@@ -7,14 +7,10 @@ import {
   addIngredient,
   removeIngredient,
   moveIngredient,
-  clearConstructor
+  clearConstructor,
+  initialState
 } from '../burgerConstructorSlice';
 import { TIngredient } from '@utils-types';
-
-const initialState = {
-  bun: null,
-  ingredients: []
-};
 
 const testBun: TIngredient = {
   _id: 'bun-1',
@@ -70,7 +66,7 @@ describe('редьюсер burgerConstructorSlice', () => {
 
   test('removeIngredient — удаляет ингредиент по id', () => {
     const previousState = {
-      bun: null,
+      ...initialState,
       ingredients: [
         { ...testMain, id: 'id-1' },
         { ...testMain, id: 'id-2' }
@@ -85,7 +81,7 @@ describe('редьюсер burgerConstructorSlice', () => {
 
   test('moveIngredient — перемещает ингредиент вверх', () => {
     const previousState = {
-      bun: null,
+      ...initialState,
       ingredients: [
         { ...testMain, id: 'id-1', name: 'Первый' },
         { ...testMain, id: 'id-2', name: 'Второй' }
@@ -101,7 +97,7 @@ describe('редьюсер burgerConstructorSlice', () => {
 
   test('moveIngredient — перемещает ингредиент вниз', () => {
     const previousState = {
-      bun: null,
+      ...initialState,
       ingredients: [
         { ...testMain, id: 'id-1', name: 'Первый' },
         { ...testMain, id: 'id-2', name: 'Второй' }
